@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Title{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static "main/assets/css/Footer-white.css" %}" />
+    <link rel="stylesheet" href="{% static "main/search/style.css" %}" />
+    {% block enabling_css %}{% endblock enabling_css %}
+</head>
+<body>
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+        <button class="w3-bar-item w3-button w3-large" onclick="w3_close()">Закрыть &times;</button>
+        <a href="/" class="w3-bar-item w3-button">Главная</a>
+        {% for element in sections %}
+            <a href="section?Id={{ element.id }}" class="w3-bar-item w3-button">{{ element.name }}</a>
+        {% endfor %}
+        {% if user.role == 1%}
+            <a href="list-users" class="w3-bar-item w3-button">Список пользователей</a>
+            <a href="list-sections" class="w3-bar-item w3-button">Список секций</a>
+        {% endif %}
+        {% if user is None %}
+            <a href="authorization" class="w3-bar-item w3-button">Авторизация</a>
+        {% else %}
+            <a href="profile" class="w3-bar-item w3-button">Вы зашли под именем {{ user.surname }} {{ user.name }}</a>
+        {% endif %}
+    </div>
+
+    <div id="main">
+        <div class="w3-teal">
+            <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+            <div class="w3-container">
+                <h1>{% block header %}Header{% endblock header %}</h1>
+                <div class="s">
+                    <form action="search" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="Искать здесь...">
+                        <button type="submit"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="w3-container">
+            <div>{% block content%}{% endblock content %}</div>
+        </div>
+
+    </div>
+
+    <footer id="myFooter">
+        <div class="container">
+            <ul>
+                <li><a href="site-information">Информация о сайте</a></li>
+                <li><a href="contact-us">Связаться с нами</a></li>
+                <li><a href="terms-of-service">Условия использования</a></li>
+            </ul>
+        </div>
+        <div class="footer-social">
+            <a href="#" class="social-icons"><i class="fa fa-facebook"></i></a>
+            <a href="#" class="social-icons"><i class="fa fa-google-plus"></i></a>
+            <a href="#" class="social-icons"><i class="fa fa-twitter"></i></a>
+        </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

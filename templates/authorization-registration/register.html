@@ -1,0 +1,90 @@
+{% extends "base/base-authorization-registration.html" %}
+{% load static %}
+{% block title %}Регистрация{% endblock title %}
+{% block header %}Регистрация{% endblock header %}
+
+{% block enabling_css %}
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/css/style.css" %}" />
+{% endblock enabling_css %}
+
+{% block content %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<form class="login100-form validate-form" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% if error is not None%}
+			<div class="container-login100-form-btn">
+				<p style="color: red;">{{ error }}</p>
+			</div>
+		{% endif %}
+		<div class="wrap-input100 validate-input m-b-18" data-validate = "Необходимо ввести фамилию">
+			<span class="label-input100">Фамилия</span>
+			<input class="input100" type="text" maxlength="50" name="surname" placeholder="Введите фамилию">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="wrap-input100 validate-input m-b-18" data-validate = "Необходимо ввести имя">
+			<span class="label-input100">Имя</span>
+			<input class="input100" type="text" maxlength="50" name="name" placeholder="Введите имя">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="wrap-input100 validate-input m-b-18" data-validate = "Необходимо ввести отчество">
+			<span class="label-input100">Отчество</span>
+			<input class="input100" type="text" maxlength="50" name="middle_name" placeholder="Введите отчество">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="wrap-input100 validate-input m-b-18" data-validate = "Укажите адрес электронной почты">
+			<span class="label-input100">Адрес электронной почты</span>
+			<input class="input100" type="email" name="email" placeholder="Введите адрес электронной почты">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="wrap-input100 validate-input m-b-18" data-validate = "Укажите номер телефона">
+			<span class="label-input100">Телефон</span>
+			<input class="input100" type="tel" name="phone_number" pattern="[0-9]{9}" placeholder="Введите номер телефона в формате xxxxxxxxx">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="container-login100-form-btn">
+			&nbsp;
+		</div>
+		<div class="upload_form">
+			<label>
+				<input name="image" type="file" class="main_input_file" accept="image/*"/>
+				<div>Выберите фотографию</div>
+				<input class="f_name" type="text" id="f_name" value="Файл не выбран." disabled />
+			</label>
+		</div>
+		<div class="container-login100-form-btn">
+			&nbsp;
+		</div>
+		<div class="wrap-input100 validate-input m-b-26" data-validate="Необходимо ввести логин">
+			<span class="label-input100">Логин</span>
+			<input class="input100" type="text" maxlength="20" name="login" placeholder="Введите логин">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="wrap-input100 validate-input m-b-18" data-validate = "Необходимо ввести пароль">
+			<span class="label-input100">Пароль</span>
+			<input class="input100" type="password" minlength="12" name="password" placeholder="Введите пароль">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="wrap-input100 validate-input m-b-18" data-validate = "Необходимо повторить пароль">
+			<span class="label-input100">Повторите пароль</span>
+			<input class="input100" type="password" minlength="12" name="repeat_password" placeholder="Повторите пароль">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="container-login100-form-btn">
+			<button class="login100-form-btn">
+				Зарегистрироваться
+			</button>&nbsp;
+			<a href="authorization" class="login100-form-btn">Вернуться назад</a>
+		</div>
+	</form>
+	<script>
+		$(document).ready(function() {
+			$(".main_input_file").change(function() {
+				var f_name = [];
+				for (var i = 0; i < $(this).get(0).files.length; ++i) {
+					f_name.push(" " + $(this).get(0).files[i].name);
+				}
+				$("#f_name").val(f_name.join(", "));
+			});
+		});
+	</script>
+{% endblock content %}

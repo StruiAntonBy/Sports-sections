@@ -1,0 +1,44 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Главная{% endblock title %}
+{% block header %}Главная{% endblock header %}
+
+{% block enabling_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "main/index/style.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "lists/list-users/main.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "main/main.css" %}" />
+{% endblock enabling_css %}
+
+{% block content %}
+    <p></p>
+    {% if message is not None %}
+        <dialog open>
+          <p>{{ message }}</p>
+          <button id="closeDialog" class="b" style="padding: 7px 8px; font-size: 13px;">Закрыть</button>
+        </dialog>
+    {% endif %}
+    <h3>В 1978 году на базе Витебского техникума физической культуры был открыт факультет физического воспитания «Витебского государственного педагогического института им. С.М. Кирова». В 1993 году он был переименован в факультет физической культуры и спорта.</h3>
+    <p align="center"><img src="{% static "main/image/img1.jpg" %}" class="responsive"></p>
+    <p align="center">«Витебский государственный педагогический института им. С.М. Кирова»</p>
+    <h3>За годы существования факультета подготовлено более 5 тысяч специалистов.</h3>
+    &nbsp;
+    <p align="center"><img src="{% static "main/image/img2.jpg" %}" class="responsive"></p>
+    <h4 align="center">Заслуженный мастер спорта, чемпион Олимпийских игр по боксу Вячеслав Яновский</h4>
+    <p align="center"><img src="{% static "main/image/img3.jpg" %}" class="responsive"></p>
+    <h4 align="center">Заслуженный мастер спорта, серебряный призер Олимпийских игр по боксу Виктор Зуев</h4>
+    <p align="center"><img src="{% static "main/image/img4.jpg" %}" class="responsive"></p>
+    <h4 align="center">Чемпионка Европы среди молодёжи, мастер спорта международного класса Анастасия Михаленко</h4>
+    <p align="center"><img src="{% static "main/image/img5.jpg" %}" class="responsive"></p>
+    <h4 align="center">Чемпионка Беларуси Дарья Тевелева</h4>
+    <p align="center"><img src="{% static "main/image/img6.jpg" %}" class="responsive"></p>
+    <h4 align="center">Чемпионка Беларуси Ольга Генералова</h4>
+    <p align="center"><img src="{% static "main/image/img7.jpg" %}" class="responsive"></p>
+    <h4 align="center">Чемпион Мира по кикбоксингу Сергей Скиба</h4>
+    <h3>В настоящее время на факультете обучаются более 400 студентов дневной и заочной формы получения образования. С сентября 2020 года деканом факультета является Сучков Андрей Константинович доцент, кандидат педагогических наук.</h3>
+    <script>
+      var dialog = document.querySelector('dialog');
+      document.querySelector('#closeDialog').onclick = function() {
+        dialog.close(); // Прячем диалоговое окно
+      }
+    </script>
+{% endblock content %}

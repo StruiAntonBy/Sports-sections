@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock title %}
+{% block header %}{{ header }}{% endblock header %}
+
+{% block enabling_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "lists/edit-section/style.css" %}" />
+{% endblock enabling_css %}
+
+{% block content %}
+    <div class="wrapper">
+        <form action="add-lesson" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="year" value="{{ date.year }}">
+            <input type="hidden" name="month" value="{{ date.month }}">
+            <input type="hidden" name="day" value="{{ date.day }}">
+            <input type="hidden" name="section_id" value="{{ section_id }}">
+            {% if lesson is not None %}
+                <input type="hidden" name="lesson_id" value="{{ lesson.id }}">
+            {% endif %}
+            {% if error is not None %}
+                <div class="group">
+                    <p style="color: red;">{{ error }}</p>
+                </div>
+            {% endif %}
+            <div class="group">
+                <input type="time" name="start_time" value="{% if lesson is not None and fixed is False %}{{ lesson.start_time }}{% elif fixed %}0{{ lesson.start_time }}{% else %}00:00{% endif %}" required="required"/><span class="highlight"></span><span class="bar"></span>
+                <label>Время начала занятия в формате xx:xx</label>
+            </div>
+            <div class="group">
+                <input type="time" name="end_time" value="{% if lesson is not None and fixed is False %}{{ lesson.end_time }}{% elif fixed %}0{{ lesson.end_time }}{% else %}00:00{% endif %}" required="required"/><span class="highlight"></span><span class="bar"></span>
+                <label>Время окончания занятия в формате xx:xx</label>
+            </div>
+            <div class="group">
+                <input type="text" maxlength="200" value="{{ lesson.description }}" name="description"  required="required"/><span class="highlight"></span><span class="bar"></span>
+                <label>Описание</label>
+            </div>
+            <div class="btn-box">
+                <button class="btn btn-submit" type="submit">Сохранить</button>
+            </div>
+        </form>
+        <form method="get">
+            <input type="hidden" name="year" value="{{ date.year }}">
+            <input type="hidden" name="month" value="{{ date.month }}">
+            <input type="hidden" name="day" value="{{ date.day }}">
+            <input type="hidden" name="Id" value="{{ section_id }}">
+            <div class="btn-box">
+                <button class="btn btn-submit" type="submit">Вернуться назад</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

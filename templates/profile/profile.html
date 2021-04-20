@@ -1,0 +1,122 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Профиль пользователя{% endblock title %}
+{% block header %}Профиль пользователя{% endblock header %}
+
+{% block enabling_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "profile/css/main.css" %}" />
+    <link rel="stylesheet" href="{% static "profile/css/style.css" %}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% endblock enabling_css %}
+
+{% block content %}
+    &nbsp;
+    <div class="container">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
+                    <a class="cpm cpm_type1 cpm_type1-a1 tile section__item">
+                        <img src="/uploads/{{ outUser.image }}" class="cpm__img tile__img">
+                    </a>
+                </div>
+                <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
+                    <div class="container" style="border-bottom:1px solid black">
+                        <h2>{{ outUser.surname }} {{ outUser.name }} {{ outUser.middle_name }}</h2>
+                    </div>
+                    <hr>
+                    <ul class="container details">
+                        <li><p><span class="glyphicon glyphicon-user" style="width:50px;"></span>{% if outUser.role == 1 %}Администратор{% elif outUser.role == 2 %}Тренер{% elif outUser.role == 3 %}Студент{% else %}Ошибка{% endif %}
+                        </p></li>
+                        <li><p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>+375{{ outUser.phone_number }}</p></li>
+                        <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>{{ outUser.email }}</p></li>
+                        {% if outUser == user %}
+                            <p><a href="exit" class="button" style="text-decoration: none;">Выйти</a><a href="#openModal" class="button" style="text-decoration: none;">Изменить пароль</a><a href="#openModal1" class="button" style="text-decoration: none;">Изменить профиль</a></p>
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_id" value="{{ outUser.id }}">
+                                <div id="openModal" class="modalDialog">
+                                    <div>
+                                        <a href="#close" title="Закрыть" class="close"></a>
+                                        <h2>Смена пароля</h2>
+                                        &nbsp;
+                                        <div class="form-row">
+                                            {% if error is not None %}
+                                                <p style="color: red;">{{ error }}</p>
+                                            {% endif %}
+                                            <input type="password" id="password1" minlength="12" name="password" required autocomplete="off"><label for="password1">Введите старый пароль</label>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="password" id="password2" minlength="12" name="new-password" required autocomplete="off"><label for="password2">Введите новый пароль</label>
+                                        </div>
+                                        <button class="but">Изменить</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <form method="post" action="edit" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_id" value="{{ outUser.id }}">
+                                <div id="openModal1" class="modalDialog">
+                                    <div>
+                                        <a href="#close" title="Закрыть" class="close"></a>
+                                        <h2>Профиль</h2>
+                                        &nbsp;
+                                        <div class="form-row">
+                                            <input type="text" id="text1" name="surname" maxlength="50" value="{{ outUser.surname }}" required autocomplete="off"><label for="text1">Фамилия</label>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" id="text2" name="name" maxlength="50" value="{{ outUser.name }}" required autocomplete="off"><label for="text2">Имя</label>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" id="text3" name="middle_name" maxlength="50" value="{{ outUser.middle_name }}" required autocomplete="off"><label for="text3">Отчество</label>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" id="text4" name="email" value="{{ outUser.email }}" required autocomplete="off"><label for="text4">Адрес электронной почты</label>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" id="text5" name="phone_number" maxlength="9" minlength="9" value="{{ outUser.phone_number }}" required autocomplete="off"><label for="text5">Телефон в формате xxxxxxxxx</label>
+                                        </div>
+                                        <div class="form-row">
+                                            <input type="text" id="text6" name="login" maxlength="20" value="{{ outUser.account.login }}" required autocomplete="off"><label for="text6">Логин</label>
+                                        </div>
+                                        &nbsp;
+                                        <div>&nbsp;</div>
+                                        <div class="form-row">
+                                            <div class="field__wrapper">
+                                               <input type="file" name="image" accept="image/*" id="field__file-2" class="field field__file">
+                                               <label class="field__file-wrapper" for="field__file-2">
+                                                   <div class="field__file-fake">Фотография не выбрана</div>
+                                                   <div class="field__file-button">Выбрать</div>
+                                               </label>
+                                            </div>
+                                        </div>
+                                        <button class="but">Изменить</button>
+                                    </div>
+                                </div>
+                            </form>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let fields = document.querySelectorAll('.field__file');
+        Array.prototype.forEach.call(fields, function (input) {
+          let label = input.nextElementSibling,
+            labelVal = label.querySelector('.field__file-fake').innerText;
+
+          input.addEventListener('change', function (e) {
+            let countFiles = '';
+            if (this.files && this.files.length >= 1)
+              countFiles = this.files.length;
+
+            if (countFiles)
+              label.querySelector('.field__file-fake').innerText = this.files[0].name;
+            else
+              label.querySelector('.field__file-fake').innerText = labelVal;
+          });
+        });
+    </script>
+{% endblock content %}

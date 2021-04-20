@@ -1,0 +1,137 @@
+[include*="form-input-select()"] {
+    display: block;
+    padding: 0;
+    position: relative;
+    color: #000;
+    display: block;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 16px;
+    margin-top: 9px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+[include*="form-input-select()"]::before, [include*="form-input-select()"]::after {
+    content: '';
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+}
+[include*="form-input-select()"] select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: none;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    border: 1px solid transparent;
+    font-size: 16px;
+    outline: none;
+}
+[include*="form-input-select()"] select:focus {
+    background-color: transparent;
+    outline: none;
+}
+[include*="form-input-select()"] option {
+    font-weight: normal;
+}
+[include*="form-input-select()"] x:-o-prefocus, [include*="form-input-select()"]::after {
+    display: none;
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    [include*="form-input-select()"] select::-ms-expand {
+        display: none;
+    }
+    [include*="form-input-select()"] select:focus::-ms-value {
+        background: transparent;
+        color: #000;
+    }
+}
+@-moz-document url-prefix() {
+    [include*="form-input-select()"] {
+        overflow: hidden;
+    }
+    [include*="form-input-select()"] select {
+        width: 120%;
+        width: calc(100% + 3em);
+    }
+    @supports (-moz-appearance: none) {
+        [include*="form-input-select()"] select {
+            width: 100%;
+        }
+    }
+    [include*="form-input-select()"] select:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+    }
+}
+@supports (-moz-appearance: none) {
+    [include*="form-input-select()"] {
+        width: 100%;
+    }
+}
+[include*="form-input-select()"]::before, [include*="form-input-select()"]::after {
+    content: '';
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    border: 1px solid transparent;
+    width: 0;
+    height: 0;
+    right: 16px;
+}
+[include*="form-input-select()"]::before {
+    bottom: 55%;
+    border-width: 0 6.5px 8px 6.5px;
+    border-bottom-color: #D6D6D6;
+}
+[include*="form-input-select()"]::after {
+    border-width: 8px 6.5px 0 6.5px;
+    border-top-color: #D6D6D6;
+    top: 55%;
+}
+@-moz-document url-prefix() {
+    [include*="form-input-select()"] {
+        border-right: 3px solid #E6E6E6;
+    }
+    [include*="form-input-select()"]:hover {
+        border-right: 3px solid #005BA6;
+    }
+}
+[include*="form-input-select()"]:hover select {
+    box-shadow: 0 2px 3px rgba(0, 91, 166, 0.1) inset;
+    border-color: #009688;
+}
+[include*="form-input-select()"]:hover select:focus {
+    outline-color: transparent;
+}
+[include*="form-input-select()"]:hover::before {
+    border-bottom-color: #009688;
+}
+[include*="form-input-select()"]:hover::after {
+    border-top-color: #009688;
+}
+[include*="form-input-select()"] select {
+    border: 3px solid #E6E6E6;
+    border-radius: 0;
+    font-weight: 400;
+    color: inherit;
+    padding: 11px 15px;
+    line-height: normal;
+    -webkit-transition: border-color 0.2s ease, outline 0.2s ease;
+    transition: border-color 0.2s ease, outline 0.2s ease;
+}
+[include*="form-input-select()"] select:focus {
+    box-shadow: 0 3px 4px rgba(0, 91, 166, 0.3) inset;
+    outline: 3px solid #009688;
+    outline-offset: -3px;
+}
+[include*="form-input-select()"] select[disabled], [include*="form-input-select()"] select:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+[include*="form-input-select()"] select:not(:focus):invalid {
+    color: #C7C7C7;
+}

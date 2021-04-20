@@ -1,0 +1,17 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock title %}
+{% block header %}{{ header }}{% endblock header %}
+
+{% block enabling_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "section/list/main.css" %}" />
+{% endblock enabling_css %}
+
+{% block content %}
+    <p></p>
+    <h2>{{ text }}</h2>
+    <form action="section" method="get">
+        <input type="hidden" name="Id" value="{{ section_id }}">
+        <button class="btn third">Вернуться назад</button>
+    </form>
+{% endblock content %}

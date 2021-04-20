@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Информация о сайте{% endblock title %}
+{% block header %}Информация о сайте{% endblock header %}
+
+{% block enabling_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "main/site-information/style.css" %}" />
+{% endblock enabling_css %}
+
+{% block content %}
+    <h3>Наш сайт предоставляет информацию о секциях, занимающихся в них студентах, расписании занятий и тренерах ВГУ имени П.М. Машерова.<br>
+    По всем вопросам Вы можете написть администратору в следующих социальных сетях:</h3>
+    &nbsp;
+    <div class="social instagram">
+        <a href="#" target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
+    </div>
+    <div class="social facebook">
+        <a href="#" target="_blank"><i class="fa fa-facebook fa-2x"></i></a>
+    </div>
+    <div class="social skype">
+        <a href="#" target="_blank"><i class="fa fa-skype fa-2x"></i></a>
+    </div>
+    <div class="social vk">
+        <a href="#" target="_blank"><i class="fa fa-vk fa-2x"></i></a>
+    </div>
+    <div class="social odnoklassniki">
+        <a href="#" target="_blank"><i class="fa fa-odnoklassniki fa-2x"></i></a>
+    </div>
+    <div class="social telegram">
+        <a href="#" target="_blank"><i class="fa fa-paper-plane fa-2x"></i></a>
+    </div>
+    <div class="social whatsapp">
+        <a href="#" target="_blank"><i class="fa fa-whatsapp fa-2x"></i></a>
+    </div>
+{% endblock content %}

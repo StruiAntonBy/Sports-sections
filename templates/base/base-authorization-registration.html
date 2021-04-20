@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+	<title>{% block title %}Title{% endblock title %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static "authorization-registration/images/icons/favicon.ico" %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/vendor/bootstrap/css/bootstrap.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/fonts/font-awesome-4.7.0/css/font-awesome.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/fonts/Linearicons-Free-v1.0.0/icon-font.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/vendor/animate/animate.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/vendor/css-hamburgers/hamburgers.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/vendor/animsition/css/animsition.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/vendor/select2/select2.min.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/vendor/daterangepicker/daterangepicker.css" %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/css/util.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "authorization-registration/css/main.css" %}">
+<!--===============================================================================================-->
+	{% block enabling_css %}{% endblock enabling_css %}
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url({% static "authorization-registration/images/bg-01.jpg" %});">
+					<span class="login100-form-title-1">
+						{% block header %}Header{% endblock header %}
+					</span>
+				</div>
+                <div>{% block content%}{% endblock content %}</div>
+			</div>
+		</div>
+	</div>
+
+<!--===============================================================================================-->
+	<script src="{% static "authorization-registration/vendor/jquery/jquery-3.2.1.min.js" %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static "authorization-registration/vendor/animsition/js/animsition.min.js" %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static "authorization-registration/vendor/bootstrap/js/popper.js" %}"></script>
+	<script src="{% static "authorization-registration/vendor/bootstrap/js/bootstrap.min.js" %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static "authorization-registration/vendor/select2/select2.min.js" %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static "authorization-registration/vendor/daterangepicker/moment.min.js" %}"></script>
+	<script src="{% static "authorization-registration/vendor/daterangepicker/daterangepicker.js" %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static "authorization-registration/vendor/countdowntime/countdowntime.js" %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static "authorization-registration/js/main.js" %}"></script>
+
+</body>
+</html>

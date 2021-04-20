@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Список{% endblock title %}
+{% block header %}Список секций{% endblock header %}
+
+{% block enabling_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "section/list/style.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "section/list/main.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "lists/list-users/main.css" %}" />
+{% endblock enabling_css %}
+
+{% block content %}
+    <p></p>
+    &nbsp;
+    <form method="post" id="f">
+        {% csrf_token %}
+        <div class="mobile-table">
+            <table class="iksweb">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Название</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for element in sections %}
+                        <tr>
+                            <td><input class="cb pristine" type="checkbox" name="section_id" value="{{ element.id }}"></td>
+                            <td><a href="section?Id={{ element.id }}">{{ element.name }}</a></td>
+                            <td><p align="center"><button class="b" name="edit" value="{{ element.id }}">Редактировать</button></p></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <p></p>
+        <p align="center">
+            <button class="b" name="button" value="add">Добавить</button>
+            <button class="b" name="button" value="delete">Удалить</button>
+        </p>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded",function(){
+            document.getElementById("f").addEventListener("click",e => {
+                let checkboxCL = e.target.classList,
+                    pState = "pristine";
+
+                if (checkboxCL.contains(pState))
+                    checkboxCL.remove(pState);
+            });
+        });
+    </script>
+{% endblock content %}

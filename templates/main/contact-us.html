@@ -1,0 +1,60 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Связатся с нами{% endblock title %}
+{% block header %}Связатся с нами{% endblock header %}
+
+{% block enabling_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "main/contact-us/style.css" %}" />
+{% endblock enabling_css %}
+
+{% block content %}
+    <p></p>
+    <div class="wrapper">
+        <div class="ico-wrap"> <i class="fa fa-map-marker ico-contact"></i>
+        </div>
+        <div class="descript-wrapper">
+            <h4 class="aio-icon-title">Наш фактический адрес:</h4>
+            <div class="aio-icon-description">
+                210038, г. Витебск, пр. Московский,
+                <br>дом 33</div>
+        </div>
+
+        <span class="clearfix"></span>
+
+        <div class="ico-wrap"> <i class="fa fa-clock-o ico-contact"></i>
+        </div>
+        <div class="descript-wrapper">
+            <h4 class="aio-icon-title">Время работы:</h4>
+            <div class="aio-icon-description">
+                пн.-пт. с 9:00 до 18:00, без перерыва.
+                <br>сб, вс — выходной</div>
+        </div>
+
+        <span class="clearfix"></span>
+
+        <div class="ico-wrap">
+            <i class="fa fa-envelope ico-contact"></i>
+        </div>
+        <div class="descript-wrapper">
+            <h4 class="aio-icon-title">Электронная почта:</h4>
+            <div class="aio-icon-description">
+                    antonstrui@yandex.by
+                <br>antonstrui@yandex.by</div>
+        </div>
+
+        <span class="clearfix"></span>
+
+        <div class="ico-wrap">
+            <i class="fa fa-phone ico-contact"></i>
+        </div>
+        <div class="descript-wrapper">
+            <h4 class="aio-icon-title">Наши телефоны:</h4>
+            <div class="aio-icon-description">
+                +375 (33) 678-91-56
+                <br>+375 (33) 678-91-56</div>
+        </div>
+
+        <span class="clearfix"></span>
+
+    </div>
+{% endblock content %}

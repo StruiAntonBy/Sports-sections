@@ -1,0 +1,126 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}{{ section.name }}{% endblock title %}
+{% block header %}{{ section.name }}{% endblock header %}
+
+{% block enabling_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "section/style.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "section/nav.css" %}" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+{% endblock enabling_css %}
+
+{% block content %}
+    <p></p>
+    <nav>
+      <ul class="m">
+        <li><a href="#Lessons">Расписание</a></li>
+        <li><a href="#Students">Студенты</a></li>
+        <li><a href="#Coaches">Тренера</a></li>
+      </ul>
+    </nav>
+    <div class="wrapper">
+        <div class="cardinf">
+            <h3 class="cardinf-title">О секции</h3>
+            <p class="cardinf-content">{{ title_description }}</p>
+            <form method="get" action="more-detailed">
+                <input type="hidden" name="name" value="description">
+                <input type="hidden" name="section_id" value="{{ section.id }}">
+                <button class="cardinf-btn">Подробнее</button>
+            </form>
+        </div>
+        <div class="cardinf">
+            <h3 class="cardinf-title">Достижения секции</h3>
+            <p class="cardinf-content">{{ title_progress }}</p>
+            <form method="get" action="more-detailed">
+                <input type="hidden" name="name" value="progress">
+                <input type="hidden" name="section_id" value="{{ section.id }}">
+                <button class="cardinf-btn">Подробнее</button>
+            </form>
+        </div>
+        <div class="cardinf">
+            <h3 class="cardinf-title">Как записаться на секцию?</h3>
+            <p class="cardinf-content">{{ title_beginner }}</p>
+            <form method="get" action="more-detailed">
+                <input type="hidden" name="name" value="beginner">
+                <input type="hidden" name="section_id" value="{{ section.id }}">
+                <button class="cardinf-btn">Подробнее</button>
+            </form>
+        </div>
+    </div>
+    <h1 align="center" id="Coaches">Тренера</h1>
+    <section class="hero-section">
+      <div class="card-grid">
+        {% for element in coaches %}
+            <a class="card" href="profile?Id={{ element.id }}">
+              <div class="card__background" style="background-image: url(/uploads/{{ element.image }})"></div>
+              <div class="card__content">
+                <p class="card__category">Тренер</p>
+                <h3 class="card__heading">{{ element.surname }} {{ element.name }} {{ element.middle_name }}</h3>
+              </div>
+            </a>
+        {% endfor %}
+      </div>
+    </section>
+        {% if user.role == 1 %}
+            <p align="center"><form method="post" action="add-coaches">{% csrf_token %}<input type="hidden" name="section_id" value="{{ section.id }}"><button class="button">Добавить тренера</button></form></p>
+            <p align="center"><form method="post" action="delete-coaches">{% csrf_token %}<input type="hidden" name="section_id" value="{{ section.id }}"><button class="button">Исключить тренера</button></form></p>
+        {% endif %}
+    <h1 align="center" id="Students">Cтуденты</h1>
+    &nbsp;
+    {% if students|length != 0 %}
+        <p align="center"><button class="button" id="example_2_2" onclick="document.getElementById('example_2').style.display='none'; document.getElementById('example_2_2').style.display='none'; document.getElementById('example_2_1').style.display='block';">Скрыть</button></p>
+        <p align="center"><button class="button" id="example_2_1" onclick="document.getElementById('example_2').style.display='block'; document.getElementById('example_2_1').style.display='none'; document.getElementById('example_2_2').style.display='block';" style="display:none;">Показать</button></p>
+    {% endif %}
+    <div id="example_2">
+        <section class="hero-section">
+          <div class="card-grid">
+            {% for element in students %}
+                <a class="card" href="profile?Id={{ element.id }}">
+                  <div class="card__background" style="background-image: url(/uploads/{{ element.image }})"></div>
+                  <div class="card__content">
+                    <p class="card__category">Студент</p>
+                    <h3 class="card__heading">{{ element.surname }} {{ element.name }} {{ element.middle_name }}</h3>
+                  </div>
+                </a>
+            {% endfor %}
+          </div>
+        </section>
+    </div>
+    {% if user.role == 2 or user.role == 1 %}
+        <p align="center"><form method="post" action="add-students">{% csrf_token %}<input type="hidden" name="section_id" value="{{ section.id }}"><button class="button">Добавить студента</button></form></p>
+        <p align="center"><form method="post" action="delete-students">{% csrf_token %}<input type="hidden" name="section_id" value="{{ section.id }}"><button class="button">Исключить студента</button></form></p>
+    {% endif %}
+    <h1 align="center" id="Lessons">Расписание занятий</h1>
+    <div class="month">
+      <ul>
+        <li class="prev"><form><a href="?Id={{ section.id }}&year={{ date.year }}&month={{ date.month }}&button=prev" class="text" style="color:#fff">&#10094;</a></form></li>
+        <li class="next"><a href="?Id={{ section.id }}&year={{ date.year }}&month={{ date.month }}&button=next" class="text" style="color:#fff">&#10095;</a></li>
+        <li>
+          {{ month }}<br>
+          <span style="font-size:18px">{{ date.year }}</span>
+        </li>
+      </ul>
+    </div>
+    <ul class="weekdays">
+      <li>Пн</li>
+      <li>Вт</li>
+      <li>Ср</li>
+      <li>Чт</li>
+      <li>Пт</li>
+      <li>Сб</li>
+      <li>Вс</li>
+    </ul>
+    <ul class="days">
+      {% for line in calendar %}
+            {% for x in line %}
+                {% if x == day %}
+                    <li><span class="active"><a href="list-lessons?Id={{ section.id }}&year={{ date.year }}&month={{ date.month }}&day={{ day }}" class="text" style="color:#fff">{{ x }}</a></span></li>
+                {% elif x != 0 %}
+                    <li><a href="list-lessons?Id={{ section.id }}&year={{ date.year }}&month={{ date.month }}&day={{ x }}" class="text">{{ x }}</a></li>
+                {% else %}
+                    <li></li>
+                {% endif %}
+            {% endfor %}
+      {% endfor %}
+    </ul>
+{% endblock content %}

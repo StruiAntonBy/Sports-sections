@@ -1,0 +1,92 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Расписание занятий{% endblock title %}
+{% block header %}Список занятий на {{ date }}{% endblock header %}
+
+{% block enabling_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "section/list/style.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "section/list/main.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "lists/list-users/style.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "lists/list-users/main.css" %}" />
+{% endblock enabling_css %}
+
+{% block content %}
+    <form method="post" id="f">
+        {% csrf_token %}
+        &nbsp;
+        <p></p>
+        <button class="b" name="button" value="sort" style="float: right;">Сортировать</button>
+        <div include="form-input-select()" style="width: 40%;float: right; margin-right: 10px;">
+            <select name="criterion">
+                <option disabled selected>Выберите критерий</option>
+                <optgroup label="По началу занятия">
+                    <option value="start-time-increase">По возрастанию</option>
+                    <option value="start-time-decrease">По убыванию</option>
+                </optgroup>
+            </select>
+        </div>
+        &nbsp;
+        <p></p>
+        &nbsp;
+        <p></p>
+        &nbsp;
+        <p></p>
+        <div class="mobile-table">
+            <table class="iksweb">
+                <thead>
+                    <tr>
+                        {% if user is not None and user.role != 3 %}
+                            <th></th>
+                        {% endif %}
+                        <th>Тренер</th>
+                        <th>Начало</th>
+                        <th>Конец</th>
+                        <th>Описание</th>
+                        {% if user is not None and user.role != 3 %}
+                            <th></th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for element in lessons %}
+                        <tr>
+                            {% if user is not None and user.role != 3  %}
+                                <td style="font-size: 15px"><input class="cb pristine" type="checkbox" name="lesson_id" value="{{ element.id }}"></td>
+                            {% endif %}
+                            <td style="font-size: 15px"><a href="profile?Id={{ element.coach.id }}">{{ element.coach.surname }} {{ element.coach.name }} {{ element.coach.middle_name }}</a></td>
+                            <td style="font-size: 15px">{{ element.start_time }}</td>
+                            <td style="font-size: 15px">{{ element.end_time }}</td>
+                            <td style="font-size: 15px">{{ element.description }}</td>
+                            {% if user is not None and user.role != 3 %}
+                                <td style="font-size: 15px"><button class="b" name="edit" value="{{ element.id }}">Редактировать</button></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <input type="hidden" name="year" value="{{ date.year }}">
+        <input type="hidden" name="month" value="{{ date.month }}">
+        <input type="hidden" name="day" value="{{ date.day }}">
+        <input type="hidden" name="section_id" value="{{ section_id }}">
+        <p></p>
+        <p align="center">
+        {% if user.role == 1 or user.role == 2 %}
+                <button class="b" name="button" value="add">Добавить</button>
+                <button class="b" name="button" value="delete">Удалить</button>
+        {% endif %}
+            <button class="b" name="button" value="back">Вернуться назад</button>
+        </p>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded",function(){
+            document.getElementById("f").addEventListener("click",e => {
+                let checkboxCL = e.target.classList,
+                    pState = "pristine";
+
+                if (checkboxCL.contains(pState))
+                    checkboxCL.remove(pState);
+            });
+        });
+    </script>
+{% endblock content %}

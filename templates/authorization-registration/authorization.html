@@ -1,0 +1,35 @@
+{% extends "base/base-authorization-registration.html" %}
+{% block title %}Авторизация{% endblock title %}
+{% block header %}Войти{% endblock header %}
+
+{% block content %}
+	<form class="login100-form validate-form" method="post">
+		{% csrf_token %}
+		{% if error is not None %}
+			<div class="container-login100-form-btn">
+				<p style="color: red;">{{ error }}</p>
+			</div>
+		{% endif %}
+		<div class="wrap-input100 validate-input m-b-26" data-validate="Необходимо ввести логин">
+			<span class="label-input100">Логин</span>
+			<input class="input100" type="text" maxlength="20" name="login" placeholder="Введите логин">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="wrap-input100 validate-input m-b-18" data-validate = "Необходимо ввести пароль">
+			<span class="label-input100">Пароль</span>
+			<input class="input100" minlength="12" type="password" name="password" placeholder="Введите пароль">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="container-login100-form-btn">
+			<button class="login100-form-btn">
+				Авторизоваться
+			</button>&nbsp;
+			<a href="register" class="login100-form-btn">Зарегистрироваться</a>
+		</div>
+		&nbsp;
+		<div class="container-login100-form-btn">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="/" class="login100-form-btn">Вернуться на главную</a>
+		</div>
+	</form>
+{% endblock content %}

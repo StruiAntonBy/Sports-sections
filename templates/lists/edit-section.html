@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock title %}
+{% block header %}{{ header }}{% endblock header %}
+
+{% block enabling_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "lists/edit-section/style.css" %}" />
+{% endblock enabling_css %}
+
+{% block content %}
+    <div class="wrapper">
+      <form method="post" action="{% if section is None %}add-section{% else %}edit-section{% endif %}">
+        {% csrf_token %}
+        {% if section is not None %}
+          <input type="hidden" name="section_id" value="{{ section.id }}">
+        {% endif %}
+        {% if error is not None %}
+          <div class="group">
+            <p style="color: red;">{{ error }}</p>
+          </div>
+        {% endif %}
+        <div class="group">
+          <input type="text" maxlength="50" name="name" value="{{ section.name }}" required="required"/><span class="highlight"></span><span class="bar"></span>
+          <label>Название секции</label>
+        </div>
+        <div class="group">
+          <textarea type="textarea" rows="5" name="description" required="required">{{ section.description }}</textarea><span class="highlight"></span><span class="bar"></span>
+          <label>О секции</label>
+        </div>
+        <div class="group">
+          <textarea type="textarea" rows="5" name="progress" required="required">{{ section.progress }}</textarea><span class="highlight"></span><span class="bar"></span>
+          <label>Достижения секции</label>
+        </div>
+        <div class="group">
+          <textarea type="textarea" rows="5" name="beginner" required="required">{{ section.beginner }}</textarea><span class="highlight"></span><span class="bar"></span>
+          <label>Как записаться на секцию?</label>
+        </div>
+        <div class="btn-box">
+          <button class="btn btn-submit" type="submit">Сохранить</button>
+        </div>
+      </form>
+      <form method="get">
+            <div class="btn-box">
+                <button class="btn btn-submit" type="submit">Вернуться назад</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
